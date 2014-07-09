@@ -35,14 +35,16 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        // tasks: ['newer:jshint:all'],
+        tasks: [],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
+        // tasks: ['newer:jshint:test', 'karma']
+        tasks: []
       },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
@@ -93,26 +95,6 @@ module.exports = function (grunt) {
             middlewares.push(connect.static(appConfig.app));
 
             return middlewares;
-
-            /*
-            if (!Array.isArray(options.base)) {
-              options.base = [options.base];
-            }
-
-            // Setup the proxy
-            var middlewares = [require('grunt-connect-proxy/lib/utils').proxyRequest];
-
-            // Serve static files.
-            options.base.forEach(function(base) {
-              middlewares.push(connect.static(base));
-            });
-
-            // Make directory browse-able.
-            var directory = options.directory || options.base[options.base.length - 1];
-            middlewares.push(connect.directory(directory));
-
-            return middlewares;
-            */
           },
           open: true,
           base: [

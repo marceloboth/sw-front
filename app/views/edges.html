@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<ul>
+<ul id="edges">
   <li ng-repeat-start="edge in edges | filter:{name: filterBy.search} | edges:filterBy"
       ng-click="selectEdge(edge)">
     <span class="label label-default">{{edge.category.name}}</span>

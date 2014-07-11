@@ -26,6 +26,10 @@ angular
         templateUrl: 'views/edges.html',
         controller: 'EdgesController'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
+      })
       .otherwise({
         redirectTo: '/'
       });

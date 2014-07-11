@@ -8,10 +8,18 @@
  * Controller of the swFrontApp
  */
 angular.module('swFrontApp')
-  .controller('EdgesController', function ($scope, edges) {
+  .controller('EdgesController', function ($scope, edges, categories, ranks) {
     $scope.edges = edges.query();
+    $scope.categories = categories.query();
+    $scope.ranks = ranks.query();
 
     var selectedEdge = null;
+
+    $scope.filterBy = {
+      search: '',
+      category: $scope.categories[0],
+      rank: $scope.ranks[0]
+    }
 
     $scope.selectEdge = function (edge) {
       selectedEdge = (selectedEdge === edge) ? null : edge;

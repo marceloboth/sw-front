@@ -8,33 +8,8 @@
  * Controller of the swFrontApp
  */
 angular.module('swFrontApp')
-  .controller('EdgesController', function ($scope) {
-    $scope.edges = [
-      {
-        name: 'Attractive',
-        description: 'Blah...',
-        category: {
-          name: "Background"
-        },
-
-        requirements: [
-          { name: null, value: 'Novice'},
-          { name: 'Vigor', value: 'd6'}
-        ]
-      },
-      {
-        name: 'Attractive',
-        description: 'Blah...',
-        category: {
-          name: "Background"
-        },
-
-        requirements: [
-          { name: null, value: 'Novice'},
-          { name: 'Vigor', value: 'd6'}
-        ]
-      }
-    ];
+  .controller('EdgesController', function ($scope, edges) {
+    $scope.edges = edges.query();
 
     var selectedEdge = null;
 

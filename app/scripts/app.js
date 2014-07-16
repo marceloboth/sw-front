@@ -17,6 +17,20 @@ angular
     'ngSanitize',
     'ngTouch'
   ])
+  .factory('authInterceptor', function () {
+    return {
+      request: function(config) {
+        config.headers = config.headers || {};
+        if (localStorage.auth_token) {
+          config.headers.token = localStorage.auth_token;
+        }
+        return config;
+      }
+    };
+  })
+  .config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {

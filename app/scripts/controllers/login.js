@@ -1,11 +1,19 @@
 'use strict';
 
-angular.module('swFrontApp').controller('LoginController', function ($scope) {
+angular.module('swFrontApp').controller('LoginController', function ($scope, auth, $location) {
   $scope.login = function() {
     if ($scope.loginForm.$valid) {
-      console.log("Ai caramba");
-    } else {
-      $scope.loginForm.submitted = true;
+      var promise = auth.login($scope.user);
+      promise.then(success, error);
     }
   };
+
+  var success = function (response) {
+    localStorage.setItem('auth_token', response.data.auth_token);
+    $location.path('/edges');
+  }
+
+  var error = function (response) {
+    $scope.wrongCredentials = true;
+  }
 });

@@ -1,47 +1,38 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name swFrontApp.controller:EdgesController
- * @description
- * # EdgesController
- * Controller of the swFrontApp
- */
-angular.module('swFrontApp')
-  .controller('EdgesController', function ($scope, edges, categories, ranks) {
-    $scope.edges = edges.query();
-    $scope.categories = categories.query();
-    $scope.ranks = ranks.query();
+angular.module('swFrontApp').controller('EdgesController', function ($scope, edges, auth, filterBy) {
+  $scope.isLoggedIn = auth.isLoggedIn;
+  $scope.filterBy = filterBy;
 
-    var selectedEdge = null;
+  $scope.edges = edges.query();
 
-    $scope.filterBy = {
-      search: '',
-      category: $scope.categories[0],
-      rank: $scope.ranks[0]
+  $scope.edgeDelete = function(edge) {
+    edge.$delete();
+  };
+
+  $scope.newEdge = new edges;
+  $scope.editEdge = function(edge) {
+    $scope.newEdge = edge;
+    console.log($scope.newEdge);
+  };
+
+  var selectedEdge = null;
+
+  $scope.isSelected = function(edge) {
+    return edge === selectedEdge;
+  };
+
+  $scope.selectEdge = function(edge) {
+    selectedEdge = (selectedEdge === edge) ? null : edge;
+  };
+
+  $scope.displayRequirements = function(reqs) {
+    var result = '';
+    for (var i=0; i < reqs.length; i++) {
+      if (result !== '') { result += ', '; }
+      if (reqs[i].name) { result += reqs[i].name + ' '; }
+      result += reqs[i].value;
     }
-
-    $scope.selectEdge = function (edge) {
-      selectedEdge = (selectedEdge === edge) ? null : edge;
-    }
-
-    $scope.isSelected = function(edge){
-      return edge === selectedEdge;
-    };
-
-    $scope.displayRequirements = function (reqs) {
-      var result = "";
-      for (var i = 0; i < reqs.length; i++) {
-
-        if (result !== "") { result += ", "; }
-
-        if (reqs[i].name) {
-          result += reqs[i].name + ' ';
-        };
-
-        result += reqs[i].value;
-      };
-      return result;
-    };
-
-  });
+    return result;
+  };
+});
